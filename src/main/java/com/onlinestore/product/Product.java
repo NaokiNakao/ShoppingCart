@@ -18,7 +18,7 @@ public class Product {
             strategy = GenerationType.SEQUENCE,
             generator = "product_id_sequence"
     )
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;
