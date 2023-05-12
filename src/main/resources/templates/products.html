@@ -19,17 +19,22 @@
         <div class="row">
             <h1>CRUD Productos</h1>
         </div>
-        <table class="table table-striped table-bordered">
-            <thead>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>Producto</th>
                     <th>Precio (RD$)</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each = "product: ${products}">
                     <td th:text = "${product.name}"></td>
                     <td th:text = "${product.price}"></td>
+                    <td>
+                        <a class = "btn btn-primary">Editar</a>
+                        <a class = "btn btn-danger">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
