@@ -24,12 +24,12 @@
 
                         <div class="form-group mr-2 my-3">
                             <label>Precio</label>
-                            <input type="number" name="price" th:field="*{price}" class="form-control" placeholder="Precio del producto" />
+                            <input type="number" name="price" th:field="*{price}" class="form-control" step="any" placeholder="Precio del producto" />
                         </div>
 
                         <div class="box-footer text-center mt-5">
                             <button type="submit" class="btn btn-light d-inline-block">Aceptar</button>
-                            <button type="submit" class="btn btn-light d-inline-block ms-2">Cancelar</button>
+                            <a href="/products" class="btn btn-light d-inline-block ms-2">Cancelar</a>
                         </div>
                     </form>
                 </div>
