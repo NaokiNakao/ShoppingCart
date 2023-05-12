@@ -19,4 +19,11 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/products/new")
+    public String createProductForm(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "create_product";
+    }
+
 }
