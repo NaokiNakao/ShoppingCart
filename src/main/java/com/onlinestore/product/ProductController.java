@@ -42,4 +42,13 @@ public class ProductController {
         return "edit_product";
     }
 
+    @PostMapping("/products/{id}")
+    public String updateProduct(@PathVariable("id") Long id, @ModelAttribute("product") Product product) {
+        Product existingProduct = productService.getProductById(id);
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        productService.saveProduct(existingProduct);
+        return "redirect:/products";
+    }
+
 }
