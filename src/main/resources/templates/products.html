@@ -37,7 +37,7 @@
                     <td th:text = "${product.price}"></td>
                     <td>
                         <a th:href = "@{/products/edit/{id}(id=${product.id})}" class = "btn btn-primary">Editar</a>
-                        <a class = "btn btn-danger">Eliminar</a>
+                        <a th:href = "@{/products/{id}(id=${product.id})}" class = "btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
             </tbody>
