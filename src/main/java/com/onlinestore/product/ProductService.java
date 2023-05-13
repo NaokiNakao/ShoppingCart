@@ -1,17 +1,35 @@
 package com.onlinestore.product;
 
+import org.springframework.stereotype.Service;
 import java.util.List;
 
-public interface ProductService {
+@Service
+public class ProductService {
 
-    List<Product> getAllProducts();
+    private ProductRepository productRepository;
 
-    Product saveProduct(Product product);
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-    Product getProductById(Long id);
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
 
-    Product updateProduct(Product product);
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
 
-    void deleteProductById(Long id);
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).get();
+    }
+
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
+    }
 
 }
