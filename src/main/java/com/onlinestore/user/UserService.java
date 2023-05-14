@@ -1,5 +1,6 @@
 package com.onlinestore.user;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,22 @@ public class UserService {
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
         return userDto;
+    }
+
+    @PostConstruct
+    public void createDefaultAdmin() {
+        if (userRepository.findByEmail("admin") == null) {
+            User adminUser = new User();
+            adminUser.setName("admin");
+            adminUser.setEmail("admin");
+            adminUser.setPassword(passwordEncoder.encode("admin"));
+
+            UserRole userRole = new UserRole();
+            userRole.setName("ADMIN");
+            adminUser.setRoles(Arrays.asList(userRole));
+
+            userRepository.save(adminUser);
+        }
     }
 
 }

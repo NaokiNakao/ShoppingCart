@@ -30,7 +30,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/products").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/products").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
