@@ -2,6 +2,7 @@ package com.onlinestore.user;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -29,19 +30,22 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10)
-    private UserRole userRole;
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            name="users_roles",
+            joinColumns={@JoinColumn(name="user_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="role_ID", referencedColumnName="ID")})
+    private Collection<UserRole> roles;
 
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, UserRole userRole) {
+    public User(Long id, String name, String email, String password, Collection<UserRole> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -76,12 +80,12 @@ public class User {
         this.password = password;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Collection<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRoles(Collection<UserRole> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -91,7 +95,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", userRole=" + userRole +
+                ", roles=" + roles +
                 '}';
     }
 
@@ -100,12 +104,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && userRole == user.userRole;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, userRole);
+        return Objects.hash(id, name, email, password, roles);
     }
 
 }

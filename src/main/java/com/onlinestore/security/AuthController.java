@@ -19,6 +19,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         UserDTO user = new UserDTO();
@@ -27,18 +32,11 @@ public class AuthController {
     }
 
     @PostMapping("/register/save")
-    public String registration(@ModelAttribute("user") UserDTO userDTO, Model model){
-        model.addAttribute("user", userDTO);
-        userService.saveUser(userDTO);
-        return "redirect:/register?success";
-    }
-
-    /*@PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model){
+    public String registration(@ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model){
         User existingUser = userService.getUserByEmail(userDTO.getEmail());
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null, "There is already an account registered with the same email");
+            result.rejectValue("email", null, "Este email ya se encuentra tomado.");
         }
 
         if(result.hasErrors()){
@@ -48,6 +46,6 @@ public class AuthController {
 
         userService.saveUser(userDTO);
         return "redirect:/register?success";
-    }*/
+    }
 
 }

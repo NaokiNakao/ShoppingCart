@@ -3,14 +3,18 @@ package com.onlinestore.user;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class UserService {
 
     private UserRepository userRepository;
+    private UserRoleRepository userRoleRepository;
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -20,13 +24,24 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setUserRole(UserRole.CUSTOMER);
+        
+        UserRole userRole = userRoleRepository.findByName("CUSTOMER");
+        if(userRole == null){
+            userRole = checkRoleExist();
+        }
+        user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
     }
 
-/*    public User getUserByEmail(String email) {
+    private UserRole checkRoleExist() {
+        UserRole userRole = new UserRole();
+        userRole.setName("CUSTOMER");
+        return userRoleRepository.save(userRole);
+    }
+
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
-    }*/
+    }
 
     private UserDTO mapToUserDTO(User user){
         UserDTO userDto = new UserDTO();
