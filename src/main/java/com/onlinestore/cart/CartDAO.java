@@ -1,31 +1,20 @@
 package com.onlinestore.cart;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-@Configuration
+@Repository
 public class CartDAO {
 
-    String url = "jdbc:postgresql://localhost/online_store_db?user=postgres&password=password&ssl=false";
-    Connection conn = DriverManager.getConnection(url);
-
-    public CartDAO() throws SQLException {
-    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
-    void createQtyColumn() throws SQLException {
-        try (Statement st = conn.createStatement()) {
-            st.execute("ALTER TABLE cart_products ADD COLUMN qty integer");
-            st.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+    void addQtyColumn() {
+        String sql = "ALTER TABLE cart_products ADD COLUMN IF NOT EXISTS qty integer";
+        jdbcTemplate.execute(sql);
     }
 
 }
