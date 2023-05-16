@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CartDAO {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
