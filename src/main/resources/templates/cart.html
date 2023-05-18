@@ -29,17 +29,15 @@
 
             <tbody>
                 <tr th:each="cart: ${cart}">
-                    <form th:action="@{/cart/{id} (id=${cart.id})}" th:object="${cart}" method="post">
-                        <td th:text="${cart.product.name}"></td>
-                        <td th:text="${cart.product.price}"></td>
-                        <td th:text="${cart.quantity}"></td>
-                        <td>
-                            <span th:text="${cart.getTotalPrice()}"></span>
-                        </td>
-                        <td>
-                            <a th:href = "@{/cart/{id}(id=${cart.id})}" class = "btn btn-danger">Eliminar</a>
-                        </td>
-                    </form>
+                    <td th:text="${cart.product.name}"></td>
+                    <td th:text="${cart.product.price}"></td>
+                    <td th:text="${cart.quantity}"></td>
+                    <td>
+                        <span th:text="${cart.getTotalPrice()}"></span>
+                    </td>
+                    <td>
+                        <a th:href = "@{/cart/{id}(id=${cart.id})}" class = "btn btn-danger">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -47,6 +45,13 @@
         <div class="row">
             <div class="col text-end">
                 <h5>Total: <span th:text="${totalPrice}"></span></h5>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <button class="btn btn-primary" type="button">Procesar Compra</button>
+                <button class="btn btn-secondary" type="button">Limpiar Carrito</button>
             </div>
         </div>
     </div>
