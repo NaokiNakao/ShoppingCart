@@ -33,14 +33,22 @@
                         <td th:text="${cart.product.name}"></td>
                         <td th:text="${cart.product.price}"></td>
                         <td th:text="${cart.quantity}"></td>
-                        <td><span th:text="${cart.getTotalPrice()}"></span></td>
                         <td>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <span th:text="${cart.getTotalPrice()}"></span>
+                        </td>
+                        <td>
+                            <a th:href = "@{/cart/{id}(id=${cart.id})}" class = "btn btn-danger">Eliminar</a>
                         </td>
                     </form>
                 </tr>
             </tbody>
         </table>
+
+        <div class="row">
+            <div class="col text-end">
+                <h5>Total: <span th:text="${totalPrice}"></span></h5>
+            </div>
+        </div>
     </div>
 </body>
 </html>

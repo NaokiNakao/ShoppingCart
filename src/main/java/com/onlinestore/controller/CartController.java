@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Controller
 public class CartController {
 
@@ -32,7 +35,12 @@ public class CartController {
 
     @GetMapping("/cart")
     public String showCart(Model model) {
-        model.addAttribute("cart", cartService.getCartItemsByUser(LoginUser.getInstance().getUserData()));
+        User currentUser = LoginUser.getInstance().getUserData();
+        List<Cart> cart = cartService.getCartItemsByUser(currentUser);
+        BigDecimal totalPrice = cartService.getTotalPriceByUserId(currentUser.getId());
+
+        model.addAttribute("cart", cart);
+        model.addAttribute("totalPrice", totalPrice);
         return "cart";
     }
 
@@ -51,6 +59,12 @@ public class CartController {
         }
 
         return "redirect:/catalog?success";
+    }
+
+    @GetMapping("/cart/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        cartService.deleteCartById(id);
+        return "redirect:/cart";
     }
 
 }
