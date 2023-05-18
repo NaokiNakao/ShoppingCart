@@ -1,5 +1,7 @@
-package com.onlinestore.product;
+package com.onlinestore.service;
 
+import com.onlinestore.entity.Product;
+import com.onlinestore.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,10 +24,6 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).get();
-    }
-
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
     }
 
     public void deleteProductById(Long id) {

@@ -1,5 +1,7 @@
-package com.onlinestore.product;
+package com.onlinestore.controller;
 
+import com.onlinestore.entity.Product;
+import com.onlinestore.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
