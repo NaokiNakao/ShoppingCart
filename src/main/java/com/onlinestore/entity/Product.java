@@ -1,4 +1,4 @@
-package com.onlinestore.product;
+package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -18,6 +18,7 @@ public class Product {
             strategy = GenerationType.SEQUENCE,
             generator = "product_id_sequence"
     )
+    @Column(name = "id", updatable = false)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
@@ -28,8 +29,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(long id, String name, BigDecimal price) {
-        this.id = id;
+    public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
     }
