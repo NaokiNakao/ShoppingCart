@@ -31,7 +31,8 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String showCart() {
+    public String showCart(Model model) {
+        model.addAttribute("cart", cartService.getCartItemsByUser(LoginUser.getInstance().getUserData()));
         return "cart";
     }
 
@@ -49,7 +50,7 @@ public class CartController {
             cartService.saveCart(cart);
         }
 
-        return "redirect:/catalog";
+        return "redirect:/catalog?success";
     }
 
 }

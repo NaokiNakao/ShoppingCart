@@ -6,6 +6,8 @@ import com.onlinestore.entity.User;
 import com.onlinestore.repository.CartRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartService {
 
@@ -21,5 +23,9 @@ public class CartService {
 
     public Cart getCartByProductAndUser(Product product, User user) {
         return cartRepository.findByProductAndUser(product, user);
+    }
+
+    public List<Cart> getCartItemsByUser(User user) {
+        return cartRepository.findItemsByUser(user);
     }
 }
