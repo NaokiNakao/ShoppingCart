@@ -1,6 +1,8 @@
 package com.onlinestore.entity;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -93,6 +95,11 @@ public class Cart {
     @Override
     public int hashCode() {
         return Objects.hash(id, user, product, quantity);
+    }
+
+    public BigDecimal getTotalPrice() {
+        BigDecimal productPrice = product.getPrice();
+        return productPrice.multiply(BigDecimal.valueOf(quantity));
     }
 
 }
