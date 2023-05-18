@@ -6,6 +6,7 @@ import com.onlinestore.entity.User;
 import com.onlinestore.service.CartService;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.UserService;
+import com.onlinestore.singleton.LoginUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CartController {
     @PostMapping("/catalog/{id}")
     public String addToCart(@PathVariable("id") long productId, @ModelAttribute("product") Product product, @RequestParam("qty") int quantity) throws Exception {
         Product selectedProduct =  productService.getProductById(productId);
-        User currentUser = userService.getUserById(20L);
+        User currentUser = userService.getUserById(LoginUser.getInstance().getUserData().getId());
         Cart cart = cartService.getCartByProductAndUser(selectedProduct, currentUser);
 
         if (cart != null) {
