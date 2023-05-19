@@ -2,6 +2,8 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,7 +35,28 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 10)
+    private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShoppingCart> userCarts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> userOrders = new ArrayList<>();
+
     public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String username, String password, Role role, List<ShoppingCart> userCarts, List<Order> userOrders) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.userCarts = userCarts;
+        this.userOrders = userOrders;
     }
 
     public User(String firstName, String lastName, String username, String password) {
@@ -41,6 +64,7 @@ public class User {
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        this.role = Role.CUSTOMER;
     }
 
     public Long getId() {
@@ -83,6 +107,30 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<ShoppingCart> getUserCarts() {
+        return userCarts;
+    }
+
+    public void setUserCarts(List<ShoppingCart> userCarts) {
+        this.userCarts = userCarts;
+    }
+
+    public List<Order> getUserOrders() {
+        return userOrders;
+    }
+
+    public void setUserOrders(List<Order> userOrders) {
+        this.userOrders = userOrders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -91,6 +139,9 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
+                ", userCarts=" + userCarts +
+                ", userOrders=" + userOrders +
                 '}';
     }
 
@@ -99,12 +150,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && role == user.role && Objects.equals(userCarts, user.userCarts) && Objects.equals(userOrders, user.userOrders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, username, password);
+        return Objects.hash(id, firstName, lastName, username, password, role, userCarts, userOrders);
     }
-
 }

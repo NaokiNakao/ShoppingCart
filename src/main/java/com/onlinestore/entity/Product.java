@@ -2,6 +2,8 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,16 +31,17 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, BigDecimal price) {
+    public Product(Long id, String name, BigDecimal price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,7 +75,7 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Objects.equals(name, product.name) && Objects.equals(price, product.price);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price);
     }
 
     @Override

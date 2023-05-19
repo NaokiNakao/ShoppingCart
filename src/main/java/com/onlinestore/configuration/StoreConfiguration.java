@@ -16,7 +16,7 @@ public class StoreConfiguration implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        try {
+        /*try {
             userService.saveUser(new User("Naoki", "Nakao", "naokinakao", "password"));
         }
         catch (Exception e) {
@@ -28,9 +28,9 @@ public class StoreConfiguration implements CommandLineRunner {
         }
         catch (Exception e) {
 
-        }
+        }*/
 
-        LoginUser.getInstance().setUserData(userService.getUserByUsername("naokinakao"));
-        System.out.println(LoginUser.getInstance().getUserData().toString());
+        /*LoginUser.getInstance().setUserData(userService.getUserByUsername("naokinakao"));
+        System.out.println(LoginUser.getInstance().getUserData().toString());*/
     }
 }
