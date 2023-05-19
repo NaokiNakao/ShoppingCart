@@ -10,7 +10,6 @@ import com.onlinestore.singleton.LoginUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -62,8 +61,14 @@ public class CartController {
     }
 
     @GetMapping("/cart/{id}")
-    public String deleteProduct(@PathVariable Long id) {
+    public String deleteCart(@PathVariable Long id) {
         cartService.deleteCartById(id);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart/clear")
+    public String clearCart() {
+        cartService.clearCartByUserId(LoginUser.getInstance().getUserData().getId());
         return "redirect:/cart";
     }
 

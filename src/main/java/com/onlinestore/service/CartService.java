@@ -40,4 +40,9 @@ public class CartService {
     public BigDecimal getTotalPriceByUserId(Long userId) {
         return cartDAO.getTotalPriceByUserId(userId);
     }
+
+    public void clearCartByUserId(Long userId) {
+        cartDAO.clearCartByUserId(userId);
+    }
+
 }

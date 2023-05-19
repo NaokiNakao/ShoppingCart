@@ -25,4 +25,9 @@ public class CartDAO {
         return jdbcTemplate.queryForObject(sql, new Object[]{userId}, BigDecimal.class);
     }
 
+    public void clearCartByUserId(Long userId) {
+        String sql = "DELETE FROM cart WHERE user_id = ?";
+        jdbcTemplate.update(sql, userId);
+    }
+
 }
