@@ -1,5 +1,6 @@
 package com.onlinestore.singleton;
 
+import com.onlinestore.entity.Role;
 import com.onlinestore.entity.User;
 
 public class LoginUser {
@@ -24,6 +25,16 @@ public class LoginUser {
 
     public void setUserData(User userData) {
         this.userData = userData;
+    }
+
+    public boolean isAdmin() {
+        boolean isAdmin = false;
+
+        if (userData.getRole() == Role.ADMIN) {
+            isAdmin = true;
+        }
+
+        return isAdmin;
     }
 
     @Override

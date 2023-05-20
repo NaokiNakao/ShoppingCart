@@ -1,17 +1,17 @@
 <div th:fragment="navbar">
   <nav class="navbar bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Tienda</a>
+      <a th:href="@{/catalog}" class="navbar-brand" href="#">Tienda</a>
 
       <div class="ms-auto">
         <ul class="navbar-nav d-flex flex-row">
           <li class="nav-item mx-3">
-            <a th:href="@{/catalog}" class="nav-link" href="#">Comprar</a>
+            <a th:href="@{/catalog}" class="nav-link">Comprar</a>
           </li>
-          <li class="nav-item mx-3">
+          <li class="nav-item mx-3" th:if="${T(com.onlinestore.singleton.LoginUser).getInstance().isAdmin()}">
             <a th:href="@{/orders}" class="nav-link">Ventas Realizadas</a>
           </li>
-          <li class="nav-item mx-3">
+          <li class="nav-item mx-3" th:if="${T(com.onlinestore.singleton.LoginUser).getInstance().isAdmin()}">
             <a th:href="@{/products}" class="nav-link">Administrar Productos</a>
           </li>
           <li class="nav-item mx-3">
