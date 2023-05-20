@@ -9,44 +9,50 @@
         crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="navbar :: navbar"></div>
+  <div th:replace="navbar :: navbar"></div>
 
-<div th:if="${param.success}">
-  <div class="alert alert-info">
-    Producto agregado al carrito.
-  </div>
-</div>
-
-<div class="container">
-  <div class="row text-center my-4">
-    <h1>Listado de Productos</h1>
+  <div th:if="${param.success}" id="popup">
+    <div class="alert alert-info">
+      Producto agregado al carrito.
+    </div>
   </div>
 
-  <table class="table table-striped table-bordered table-hover">
-    <thead class="table-dark">
-    <tr>
-      <th>Producto</th>
-      <th>Precio (RD$)</th>
-      <th>Cantidad</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
+  <div class="container">
+    <div class="row text-center my-4">
+      <h1>Listado de Productos</h1>
+    </div>
 
-    <tbody>
-    <tr th:each="product: ${products}">
-      <form th:action="@{/catalog/{id} (id=${product.id})}" th:object="${product}" method="post">
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
-        <td>
-          <input type="number" name="qty" value="0"/>
-        </td>
-        <td>
-          <button type="submit" class="btn btn-success">Agregar</button>
-        </td>
-      </form>
-    </tr>
-    </tbody>
-  </table>
-</div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+      <tr>
+        <th>Producto</th>
+        <th>Precio (RD$)</th>
+        <th>Cantidad</th>
+        <th>Accion</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="product: ${products}">
+        <form th:action="@{/cart/add/{id} (id=${product.id})}" th:object="${product}" method="post">
+          <td th:text="${product.name}"></td>
+          <td th:text="${product.price}"></td>
+          <td>
+            <input type="number" name="qty" value="0"/>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-success">Agregar</button>
+          </td>
+        </form>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    setTimeout(function() {
+      document.getElementById("popup").style.display = "none";
+    }, 1000);
+  </script>
 </body>
 </html>
