@@ -33,18 +33,18 @@
       </thead>
 
       <tbody>
-      <tr th:each="product: ${products}">
-        <form th:action="@{/cart/add/{id} (id=${product.id})}" th:object="${product}" method="post">
-          <td th:text="${product.name}"></td>
-          <td th:text="${product.price}"></td>
-          <td>
-            <input type="number" name="qty" value="0"/>
-          </td>
-          <td>
-            <button type="submit" class="btn btn-success">Agregar</button>
-          </td>
-        </form>
-      </tr>
+        <tr th:each="product: ${products}">
+          <form th:action="@{/cart/add/{id} (id=${product.id})}" th:object="${product}" method="post">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+              <input type="number" name="qty" value="0"/>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-success">Agregar</button>
+            </td>
+          </form>
+        </tr>
       </tbody>
     </table>
   </div>

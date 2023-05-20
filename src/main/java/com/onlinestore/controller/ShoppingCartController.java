@@ -70,6 +70,14 @@ public class ShoppingCartController {
         return "redirect:/catalog?success";
     }
 
+    @GetMapping("/cart/{id}")
+    public String deleteCartItem(@PathVariable("id") Long deletedItemId) {
+        ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUser(LoginUser.getInstance().getUserData());
+        shoppingCart.deleteItemById(deletedItemId);
+        shoppingCartService.saveShoppingCart(shoppingCart);
+        return "redirect:/cart";
+    }
+
     @PostMapping("/cart/clear")
     public String clearShoppingCart() {
         ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUser(LoginUser.getInstance().getUserData());
