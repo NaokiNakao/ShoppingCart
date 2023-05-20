@@ -2,13 +2,14 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "shopping_cart")
+@Table(name = "shopping_carts")
 public class ShoppingCart {
 
     @Id
@@ -81,9 +82,8 @@ public class ShoppingCart {
         this.processed = processed;
     }
 
-    public List<Item> checkout() {
-        processed = false;
-        return cartItems;
+    public void checkout() {
+        processed = true;
     }
 
     public void addItem(Item item) {
@@ -103,14 +103,14 @@ public class ShoppingCart {
         }
     }
 
-    public double getGrandTotal() {
+    public BigDecimal getGrandTotal() {
         double grandTotal = 0;
 
         for (Item item : cartItems) {
             grandTotal += item.getTotalPrice().doubleValue();
         }
 
-        return grandTotal;
+        return BigDecimal.valueOf(grandTotal);
     }
 
     public void clearCart() {

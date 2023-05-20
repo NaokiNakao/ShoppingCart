@@ -11,6 +11,12 @@
 <body>
 <div th:replace="navbar :: navbar"></div>
 
+<div th:if="${param.success}" id="popup">
+    <div class="alert alert-info">
+        Compra Confirmada.
+    </div>
+</div>
+
 <div class="container">
     <div class="row text-center my-4">
         <h1>Carrito de Compra</h1>
@@ -36,7 +42,7 @@
                 <span th:text="${cartItem.getTotalPrice()}"></span>
             </td>
             <td>
-                <a th:href="@{/cart/delete/{id}(id=${cartItem.id})}" class="btn btn-danger">Eliminar</a>
+                <a th:href = "@{/cart/{id}(id=${cartItem.id})}" class = "btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
@@ -58,7 +64,13 @@
             </form>
         </div>
     </div>
-
 </div>
+
+<script>
+    setTimeout(function() {
+        document.getElementById("popup").style.display = "none";
+    }, 2000);
+</script>
 </body>
 </html>
+
