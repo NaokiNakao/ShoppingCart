@@ -28,6 +28,6 @@ public class OrderController {
         shoppingCart.checkout();
         shoppingCartService.saveShoppingCart(shoppingCart);
 
-        return "redirect:/cart";
+        return "redirect:/cart?success";
     }
 }
