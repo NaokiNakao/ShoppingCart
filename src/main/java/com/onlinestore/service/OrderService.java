@@ -6,6 +6,8 @@ import com.onlinestore.entity.ShoppingCart;
 import com.onlinestore.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -23,5 +25,9 @@ public class OrderService {
         for (Item item : shoppingCart.getCartItems()) {
             item.setOrder(order);
         }
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }
