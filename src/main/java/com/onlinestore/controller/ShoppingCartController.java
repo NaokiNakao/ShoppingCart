@@ -9,6 +9,8 @@ import com.onlinestore.singleton.LoginUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ public class ShoppingCartController {
     public String showCartItems(Model model) {
         ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUser(LoginUser.getInstance().getUserData());
         List<Item> cartItems = shoppingCart.getCartItems();
-        double grandTotal = shoppingCart.getGrandTotal();
+        BigDecimal grandTotal = shoppingCart.getGrandTotal();
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("grandTotal", grandTotal);

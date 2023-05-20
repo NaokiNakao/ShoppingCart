@@ -45,6 +45,10 @@ public class Order {
         this.user = user;
     }
 
+    public Order(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -65,7 +69,7 @@ public class Order {
         return orderItems;
     }
 
-    public void setOrderItem(List<Item> orderItems) {
+    public void setOrderItems(List<Item> orderItems) {
         this.orderItems = orderItems;
     }
 

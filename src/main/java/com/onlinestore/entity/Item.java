@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 public class Item {
 
     @Id
