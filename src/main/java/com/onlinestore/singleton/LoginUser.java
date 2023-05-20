@@ -25,4 +25,11 @@ public class LoginUser {
     public void setUserData(User userData) {
         this.userData = userData;
     }
+
+    @Override
+    public String toString() {
+        return "LoginUser{" +
+                "userData=" + userData +
+                '}';
+    }
 }

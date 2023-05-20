@@ -29,7 +29,7 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date purchaseDate;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Item> orderItems = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

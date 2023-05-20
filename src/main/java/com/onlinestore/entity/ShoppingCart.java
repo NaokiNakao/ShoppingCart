@@ -25,10 +25,10 @@ public class ShoppingCart {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Item> cartItems = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -38,10 +38,16 @@ public class ShoppingCart {
     public ShoppingCart() {
     }
 
-    public ShoppingCart(Long id, List<Item> cartItems, boolean processed) {
+    public ShoppingCart(Long id, List<Item> cartItems, User user, boolean processed) {
         this.id = id;
         this.cartItems = cartItems;
+        this.user = user;
         this.processed = processed;
+    }
+
+    public ShoppingCart(User user) {
+        this.user = user;
+        this.processed = false;
     }
 
     public Long getId() {
