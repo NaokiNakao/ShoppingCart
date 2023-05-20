@@ -16,8 +16,8 @@ public class StoreRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
-            User user = userService.getUserById(79L);
-            LoginUser.getInstance().setUserData(user);
+            User user = new User("Naoki", "Nakao", "naokinakao", "password");
+            LoginUser.getInstance().setUserData(userService.saveUser(user));
             System.out.println(LoginUser.getInstance().toString());
         }
         catch (Exception e) {

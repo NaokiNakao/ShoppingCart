@@ -34,7 +34,7 @@
 
       <tbody>
       <tr th:each="product: ${products}">
-        <form th:action="@{/catalog/{id} (id=${product.id})}" th:object="${product}" method="post">
+        <form th:action="@{/cart/add/{id} (id=${product.id})}" th:object="${product}" method="post">
           <td th:text="${product.name}"></td>
           <td th:text="${product.price}"></td>
           <td>
