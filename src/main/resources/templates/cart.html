@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.com">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,51 +9,56 @@
           crossorigin="anonymous">
 </head>
 <body>
-    <div th:replace="navbar :: navbar"></div>
+<div th:replace="navbar :: navbar"></div>
 
-    <div class="container">
-        <div class="row text-center my-4">
-            <h1>Carrito de Compra</h1>
-        </div>
+<div class="container">
+    <div class="row text-center my-4">
+        <h1>Carrito de Compra</h1>
+    </div>
 
-        <table class="table table-striped table-bordered table-hover">
-            <thead class="table-dark">
-            <tr>
-                <th>Producto</th>
-                <th>Precio (RD$)</th>
-                <th>Cantidad</th>
-                <th>Total (RD$)</th>
-                <th>Accion</th>
-            </tr>
-            </thead>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Producto</th>
+            <th>Precio (RD$)</th>
+            <th>Cantidad</th>
+            <th>Total (RD$)</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
 
-            <tbody>
-                <tr th:each="cart: ${cart}">
-                    <td th:text="${cart.product.name}"></td>
-                    <td th:text="${cart.product.price}"></td>
-                    <td th:text="${cart.quantity}"></td>
-                    <td>
-                        <span th:text="${cart.getTotalPrice()}"></span>
-                    </td>
-                    <td>
-                        <a th:href = "@{/cart/{id}(id=${cart.id})}" class = "btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <tbody>
+        <tr th:each="cartItem : ${cartItems}">
+            <td th:text="${cartItem.product.name}"></td>
+            <td th:text="${cartItem.product.price}"></td>
+            <td th:text="${cartItem.quantity}"></td>
+            <td>
+                <span th:text="${cartItem.getTotalPrice()}"></span>
+            </td>
+            <td>
+                <a th:href="@{/cart/delete/{id}(id=${cartItem.id})}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-        <div class="row">
-            <div class="col text-end">
-                <h5>Total: <span th:text="${totalPrice}"></span></h5>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-6 text-center">
-                <button class="btn btn-primary" type="button">Procesar Compra</button>
-                <button class="btn btn-secondary" type="button">Limpiar Carrito</button>
-            </div>
+    <div class="row">
+        <div class="col text-end">
+            <h5>Total: <span th:text="${grandTotal}"></span></h5>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <form action="/cart/checkout" method="post" style="display: inline;">
+                <button class="btn btn-primary" type="submit">Procesar Compra</button>
+            </form>
+            <form action="/cart/clear" method="post" style="display: inline;">
+                <button class="btn btn-secondary" type="submit">Limpiar Carrito</button>
+            </form>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

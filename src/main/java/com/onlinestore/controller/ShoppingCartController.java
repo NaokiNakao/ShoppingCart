@@ -7,11 +7,9 @@ import com.onlinestore.service.ProductService;
 import com.onlinestore.service.ShoppingCartService;
 import com.onlinestore.singleton.LoginUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +21,18 @@ public class ShoppingCartController {
     public ShoppingCartController(ShoppingCartService shoppingCartService, ProductService productService) {
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
+    }
+
+    @GetMapping("/cart")
+    public String showCartItems(Model model) {
+        ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUser(LoginUser.getInstance().getUserData());
+        List<Item> cartItems = shoppingCart.getCartItems();
+        double grandTotal = shoppingCart.getGrandTotal();
+
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("grandTotal", grandTotal);
+
+        return "cart";
     }
 
     @PostMapping("/cart/add/{id}")
@@ -57,4 +67,13 @@ public class ShoppingCartController {
         // Redirect to the catalog page with a success message
         return "redirect:/catalog?success";
     }
+
+    @PostMapping("/cart/clear")
+    public String clearShoppingCart() {
+        ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUser(LoginUser.getInstance().getUserData());
+        shoppingCart.clearCart();
+        shoppingCartService.saveShoppingCart(shoppingCart);
+        return "redirect:/cart";
+    }
+
 }

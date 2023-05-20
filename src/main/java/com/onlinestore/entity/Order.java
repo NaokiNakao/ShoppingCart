@@ -2,7 +2,6 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,11 +77,12 @@ public class Order {
         this.user = user;
     }
 
-    public BigDecimal getGrandTotal() {
-        BigDecimal grandTotal = BigDecimal.valueOf(0);
+    public double getGrandTotal() {
+        double grandTotal = 0;
 
         for (Item item : orderItems) {
-            grandTotal.add(item.getTotalPrice());
+            grandTotal += item.getTotalPrice().doubleValue();
+            System.out.println(item.getTotalPrice().doubleValue());
         }
 
         return grandTotal;

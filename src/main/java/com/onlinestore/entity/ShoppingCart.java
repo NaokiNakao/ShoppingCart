@@ -2,7 +2,6 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -82,8 +81,9 @@ public class ShoppingCart {
         this.processed = processed;
     }
 
-    public void checkOut() {
+    public List<Item> checkout() {
         processed = false;
+        return cartItems;
     }
 
     public void addItem(Item item) {
@@ -103,11 +103,11 @@ public class ShoppingCart {
         }
     }
 
-    public BigDecimal getGrandTotal() {
-        BigDecimal grandTotal = BigDecimal.valueOf(0);
+    public double getGrandTotal() {
+        double grandTotal = 0;
 
         for (Item item : cartItems) {
-            grandTotal.add(item.getTotalPrice());
+            grandTotal += item.getTotalPrice().doubleValue();
         }
 
         return grandTotal;

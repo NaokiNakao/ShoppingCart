@@ -2,8 +2,6 @@ package com.onlinestore.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,6 +31,11 @@ public class Product {
 
     public Product(Long id, String name, BigDecimal price) {
         this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
     }
