@@ -29,7 +29,7 @@
             <span th:if="${error}" class="text-danger" th:text="${error}"></span>
           </p>
         </form>
-        <p class="text-center mt-3">¿No tienes una cuenta? <a href="/registro">Regístrate aquí</a></p>
+        <p class="text-center mt-3">¿No tienes una cuenta? <a th:href="@{/register}">Regístrate aquí</a></p>
       </div>
     </div>
   </div>

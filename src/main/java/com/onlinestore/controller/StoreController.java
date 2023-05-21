@@ -1,5 +1,6 @@
 package com.onlinestore.controller;
 
+import com.onlinestore.dto.UserDTO;
 import com.onlinestore.entity.User;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.UserService;
@@ -7,6 +8,7 @@ import com.onlinestore.singleton.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -44,6 +46,25 @@ public class StoreController {
             model.addAttribute("error", "Nombre de usuario o contraseña incorrectos");
             return "login";
         }
+    }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new UserDTO());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") UserDTO userDTO, Model model) {
+        if (userDTO.getUsername() != null && userService.isUsernameTaken(userDTO.getUsername())) {
+            model.addAttribute("error", "El nombre de usuario ya está en uso");
+            return "register";
+        }
+
+        User newUser = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getUsername(), userDTO.getPassword());
+        userService.createUser(newUser);
+
+        return "redirect:/login";
     }
 
 }

@@ -20,4 +20,12 @@ public class UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public boolean isUsernameTaken(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public void createUser(User newUser) {
+        userRepository.save(newUser);
+    }
 }
